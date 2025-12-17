@@ -1,31 +1,32 @@
 # House-price-predicition
-Machine Learning project to predict house price
-A Machine Learning project that predicts house prices based on key property features using Python.
-## 📌 Overview
-This project implements a regression-based machine learning model to estimate house prices from features such as area, number of bedrooms, and bathrooms. It demonstrates the complete ML workflow from data preparation to prediction.
-## 🛠 Tech Stack
-- Python
-- Pandas
-- Scikit-learn
-## ⚙️ Model Details
-- Algorithm: Linear Regression
-- Train-Test Split: 80% training, 20% testing
-- Evaluation Metric: R² Score
-## 📂 Project Structure
-house-price-prediction/
-├── house_price_prediction.py
-├── house_price_prediction_code.pdf
-└── README.md
-## ▶️ How to Run
-1. Download or clone the repository
-2. Run the Python file:
-   python house_price_prediction.py
-## 📈 Output
-- R² score of the trained model
-- Predicted house price for a sample input
-## 🚀 Key Learnings
-- Regression model implementation
-- Data handling with Pandas
-- Model evaluation techniques
-## 👩‍💻 Author
-Manireethika
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+# Create sample dataset
+data = {
+    "area": [1200, 1500, 1800, 2000, 2500, 3000],
+    "bedrooms": [2, 3, 3, 4, 4, 5],
+    "bathrooms": [1, 2, 2, 3, 3, 4],
+    "price": [3000000, 4500000, 5000000, 6500000, 8000000, 10000000]
+}
+df = pd.DataFrame(data)
+# Split features and target
+X = df[["area", "bedrooms", "bathrooms"]]
+y = df["price"]
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+# Train model
+model = LinearRegression()
+model.fit(X_train, y_train)
+# Test prediction
+y_pred = model.predict(X_test)
+# Accuracy
+print("R2 Score:", r2_score(y_test, y_pred))
+# New house prediction
+new_house = [[2200, 3, 2]]
+predicted_price = model.predict(new_house)
+print("Predicted House Price:", int(predicted_price[0]))
+
